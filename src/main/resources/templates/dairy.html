@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,9 @@
 <body>
 <div class="header">
     <div class="balance">Баланс: ******</div>
+    <div class="main-menu-button">
+        <input type="button" value="To main_menu" onclick='location.href="/main_menu"'>
+    </div>
     <div class="auth-buttons">
         <a href="/sign_in" class="button">Sign in</a>
         <a href="/log_in" class="button">Log in</a>
@@ -21,7 +24,23 @@
         <input type="button" value="Fruits" class="category-button" onclick='location.href="/main_menu/fruits"'>
         <input type="button" value="Bakery" class="category-button" onclick='location.href="/main_menu/bakery"'>
     </div>
-
+    <h1>Молочные продукты</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Название</th>
+            <th>Количество</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dairy_product : ${dairy_products}">
+            <td th:text="${dairy_product.name}"></td>
+            <td th:text="${dairy_product.amount}"></td>
+            <td th:text="${dairy_product.price}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

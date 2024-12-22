@@ -1,7 +1,7 @@
 package com.ru.klimashd.controllers;
 
-import com.ru.klimashd.entities.Vegetables;
-import com.ru.klimashd.services.VegetablesService;
+import com.ru.klimashd.entities.*;
+import com.ru.klimashd.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +15,28 @@ import java.util.List;
 public class UserInterfaceController {
 
     private final VegetablesService vegetablesService;
+    private final BakeryService bakeryService;
+    private final FruitsService fruitsService;
+    private final DairyService dairyService;
+    private final BasketService basketService;
 
     @Autowired
-    public UserInterfaceController(VegetablesService vegetablesService) {
+    public UserInterfaceController(VegetablesService vegetablesService,
+                                   BakeryService bakeryService,
+                                   FruitsService fruitsService,
+                                   DairyService dairyService,
+                                   BasketService basketService) {
         this.vegetablesService = vegetablesService;
+        this.bakeryService = bakeryService;
+        this.fruitsService = fruitsService;
+        this.dairyService = dairyService;
+        this.basketService = basketService;
     }
 
     @GetMapping("")
     public String mainMenu(Model model) {
+        List<Basket> basketList = basketService.getAllOrders();
+        model.addAttribute("products", basketList);
         return "food-list";
     }
 
@@ -34,17 +48,23 @@ public class UserInterfaceController {
     }
 
     @GetMapping("/dairy")
-    public String dairyMenu() {
+    public String dairyMenu(Model model) {
+        List<Dairy> dairyList = dairyService.getAllDairyProducts();
+        model.addAttribute("dairy_products", dairyList);
         return "dairy";
     }
 
     @GetMapping("/fruits")
-    public String fruitsMenu() {
+    public String fruitsMenu(Model model) {
+        List<Fruits> fruitsList = fruitsService.getAllFruits();
+        model.addAttribute("fruits", fruitsList);
         return "fruits";
     }
 
     @GetMapping("/bakery")
-    public String bakeryMenu() {
+    public String bakeryMenu(Model model) {
+        List<Bakery> bakeryList = bakeryService.getAllBakeryProducts();
+        model.addAttribute("bakery_products", bakeryList);
         return "bakery";
     }
 }
