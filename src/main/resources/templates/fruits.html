@@ -8,11 +8,14 @@
 </head>
 <body>
 <div class="header">
-    <div class="balance">Баланс: ******</div>
+    <div th:switch="${balance != null}">
+        <p class="balance" th:case="true">Баланс: <span th:text="${balance}"></span></p>
+        <p class="balance" th:case="*">Баланс: ???</p>
+    </div>
     <div class="main-menu-button">
         <input type="button" value="To main_menu" onclick='location.href="/main_menu"'>
     </div>
-    <div class="auth-buttons">
+    <div class="auth-buttons" th:if="${balance == null}">
         <a href="http://localhost:8081/main_menu/registration_api/registration" class="button">Register</a>
         <a href="http://localhost:8082/main_menu/authentication_api/authentication" class="button">Log in</a>
     </div>

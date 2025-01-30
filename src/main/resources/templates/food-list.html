@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,11 @@
 </head>
 <body>
 <div class="header">
-    <div class="balance">Баланс: ******</div>
-    <div class="auth-buttons">
+    <div th:switch="${balance != null}">
+        <p class="balance" th:case="true">Баланс: <span th:text="${balance}"></span></p>
+        <p class="balance" th:case="*">Баланс: ???</p>
+    </div>
+    <div class="auth-buttons" th:if="${balance == null}">
         <a href="http://localhost:8081/main_menu/registration_api/registration" class="button">Register</a>
         <a href="http://localhost:8082/main_menu/authentication_api/authentication" class="button">Log in</a>
     </div>
