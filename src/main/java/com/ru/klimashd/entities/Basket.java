@@ -5,22 +5,13 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "basket")
 public class Basket {
-//    @OneToOne(mappedBy = "basket")
-//    private Bakery bakery;
-//
-//    @OneToOne(mappedBy = "basket")
-//    private Fruits fruits;
-//
-//    @OneToOne(mappedBy = "basket")
-//    private Vegetables vegetables;
-//
-//    @OneToOne(mappedBy = "basket")
-//    private Dairy dairy;
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="id_product")
+    private int id;
+
     @Column
-    private int id_product;
+    private String productType;
 
     @Column
     private String name;
@@ -31,11 +22,18 @@ public class Basket {
     @Column
     private int price;
 
-    protected Basket() {
+    Basket() {
+    }
+
+    public Basket(String productType, String name, int amount, int price) {
+        this.productType = productType;
+        this.name = name;
+        this.amount = amount;
+        this.price = price;
     }
 
     public int getId_product() {
-        return id_product;
+        return id;
     }
 
     public String getName() {

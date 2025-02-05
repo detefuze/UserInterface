@@ -6,10 +6,7 @@ import com.ru.klimashd.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,13 +43,6 @@ public class UserInterfaceController {
         return "food-list";
     }
 
-    @PostMapping("")
-    public String mainMenu(@RequestBody Optional<CustomerDTO> optionalCustomerDTO, Model model) {
-        CustomerDTO customer = optionalCustomerDTO.get();
-        customer_balance = customer.getBalance();
-        return "food-list";
-    }
-
     @GetMapping("/vegetables")
     public String vegetablesMenu(Model model) {
         List<Vegetables> vegetablesList = vegetablesService.getAllVegetables();
@@ -83,5 +73,31 @@ public class UserInterfaceController {
         model.addAttribute("bakery_products", bakeryList);
         model.addAttribute("balance", customer_balance);
         return "bakery";
+    }
+
+    @PostMapping("")
+    public String mainMenu(@RequestBody Optional<CustomerDTO> optionalCustomerDTO, Model model) {
+        CustomerDTO customer = optionalCustomerDTO.get();
+        customer_balance = customer.getBalance();
+        return "food-list";
+    }
+
+    @PostMapping("/{productType}/add_to_cart")
+    public String addProductToBasket(
+            @PathVariable String productType,
+            @RequestParam int id_product,
+            @RequestParam int amount
+            ) {
+        switch (productType) {
+            case "vegetables":
+                Optional<Vegetables> vegetable = vegetablesService.getVegetableById(id_product);
+                basketService.addNewOrder(new Basket(
+                        productType,
+                        vegetable.get().getName(),
+                        amount,
+                        vegetable.get().getPrice()
+                ));
+        }
+        return "productType";
     }
 }

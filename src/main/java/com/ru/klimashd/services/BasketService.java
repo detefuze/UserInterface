@@ -20,4 +20,6 @@ public class BasketService {
     public List<Basket> getAllOrders() {
         return basketRepository.findAll();
     }
+
+    public void addNewOrder(Basket basket) {basketRepository.save(basket);}
 }

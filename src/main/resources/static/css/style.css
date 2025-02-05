@@ -86,6 +86,50 @@ body {
     transition: background-color 0.3s;
 }
 
+.add-to-cart-form {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%; /* Ширина формы */
+    max-width: 400px; /* Максимальная ширина */
+    margin-left: 0; /* Выравнивание по левому краю */
+}
+
+.add-to-cart-form h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.add-to-cart-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.add-to-cart-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.add-to-cart-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-form button:hover {
+    background-color: #45a049;
+}
+
 .category-button:hover {
     background-color: #0056b3; /* Более темный синий цвет при наведении */
 }

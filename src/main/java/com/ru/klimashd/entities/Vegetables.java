@@ -9,8 +9,8 @@ public class Vegetables {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column
-    private int id_product;
+    @Column(name="id_product")
+    private int id;
 
     @Column
     private String name;
@@ -31,7 +31,7 @@ public class Vegetables {
     }
 
     public int getId_product() {
-        return id_product;
+        return id;
     }
 
     public String getName() {
@@ -61,7 +61,7 @@ public class Vegetables {
     @Override
     public String toString() {
         return "Vegetables{" +
-                "id_product=" + id_product +
+                "id_product=" + id +
                 ", name='" + name + '\'' +
                 ", amount=" + amount +
                 ", price=" + price +

@@ -9,8 +9,8 @@ public class Fruits {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column
-    private int id_product;
+    @Column(name="id_product")
+    private int id;
 
     @Column
     private String name;
@@ -31,7 +31,7 @@ public class Fruits {
     }
 
     public int getId_product() {
-        return id_product;
+        return id;
     }
 
     public String getName() {

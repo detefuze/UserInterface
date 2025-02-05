@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BakeryRepository extends JpaRepository<Bakery, Integer> {
+    Bakery getBakeryById(int id);
 }

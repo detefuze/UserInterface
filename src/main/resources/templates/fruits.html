@@ -44,6 +44,19 @@
         </tr>
         </tbody>
     </table>
+
+    <div class="add-to-cart-form">
+        <h2>Добавить товар в корзину</h2>
+        <form action="/main_menu/add_to_cart/fruits" method="post">
+            <label for="productId">ID продукта:</label>
+            <input id="productId" name="productId" required>
+
+            <label for="quantity">Количество:</label>
+            <input id="quantity" name="quantity" required>
+
+            <button type="submit" class="button">В корзину</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

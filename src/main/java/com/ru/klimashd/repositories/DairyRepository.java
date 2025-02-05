@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DairyRepository extends JpaRepository<Dairy, Integer> {
+    Dairy getDairyById(int id);
 }

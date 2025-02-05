@@ -1,5 +1,6 @@
 package com.ru.klimashd.services;
 
+import com.ru.klimashd.entities.Bakery;
 import com.ru.klimashd.entities.Dairy;
 import com.ru.klimashd.repositories.DairyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +21,6 @@ public class DairyService {
     public List<Dairy> getAllDairyProducts() {
         return dairyRepository.findAll();
     }
+
+    public Dairy getDairyById(int id) { return dairyRepository.getDairyById(id);}
 }

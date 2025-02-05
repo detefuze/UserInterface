@@ -19,4 +19,6 @@ public class BakeryService {
     public List<Bakery> getAllBakeryProducts() {
         return bakeryRepository.findAll();
     }
+
+    public Bakery getBakeryById(int id) { return bakeryRepository.getBakeryById(id);}
 }

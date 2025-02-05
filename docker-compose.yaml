@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  userinterface_service:
+    image: userinterface:latest
+    hostname: userinterface
+    environment:
+      SPRING_DATASOURCE_URL: ${url_docker_food}
+      SPRING_DATASOURCE_USERNAME: ${user}
+      SPRING_DATASOURCE_PASSWORD: ${password}
+    ports:
+      - "8080:8080"
+    networks:
+      - food_shop_network
+  userregistration_service:
+    image: userregistration:latest
+    environment:
+      SPRING_DATASOURCE_URL: ${url_docker_customers}
+      SPRING_DATASOURCE_USERNAME: ${user}
+      SPRING_DATASOURCE_PASSWORD: ${password}
+    ports:
+      - "8081:8081"
+    networks:
+      - food_shop_network
+  userauthentication_service:
+    image: userauthentication:latest
+    environment:
+      SPRING_DATASOURCE_URL: ${url_docker_customers}
+      SPRING_DATASOURCE_USERNAME: ${user}
+      SPRING_DATASOURCE_PASSWORD: ${password}
+    ports:
+      - "8082:8082"
+    networks:
+      - food_shop_network
+networks:
+  food_shop_network:
+    name: food_shop_network
+    driver: bridge
