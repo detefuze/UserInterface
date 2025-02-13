@@ -30,7 +30,7 @@ public class Bakery {
         this.price = price;
     }
 
-    public int getId_product() {
+    public int getId() {
         return id;
     }
 

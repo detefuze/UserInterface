@@ -30,7 +30,7 @@ public class Fruits {
         this.price = price;
     }
 
-    public int getId_product() {
+    public int getId() {
         return id;
     }
 

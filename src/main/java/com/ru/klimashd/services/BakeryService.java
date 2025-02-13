@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BakeryService {
@@ -20,5 +21,5 @@ public class BakeryService {
         return bakeryRepository.findAll();
     }
 
-    public Bakery getBakeryById(int id) { return bakeryRepository.getBakeryById(id);}
+    public Optional<Bakery> getBakeryById(int id) { return bakeryRepository.findBakeryById(id);}
 }

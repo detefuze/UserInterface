@@ -10,7 +10,7 @@ public class Basket {
     @Column(name="id_product")
     private int id;
 
-    @Column
+    @Column(name="product_type")
     private String productType;
 
     @Column
@@ -32,7 +32,7 @@ public class Basket {
         this.price = price;
     }
 
-    public int getId_product() {
+    public int getId() {
         return id;
     }
 
@@ -46,5 +46,21 @@ public class Basket {
 
     public int getPrice() {
         return price;
+    }
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

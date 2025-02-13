@@ -1,12 +1,12 @@
 package com.ru.klimashd.services;
 
-import com.ru.klimashd.entities.Bakery;
 import com.ru.klimashd.entities.Dairy;
 import com.ru.klimashd.repositories.DairyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DairyService {
@@ -22,5 +22,5 @@ public class DairyService {
         return dairyRepository.findAll();
     }
 
-    public Dairy getDairyById(int id) { return dairyRepository.getDairyById(id);}
+    public Optional<Dairy> getDairyById(int id) { return dairyRepository.findDairyById(id);}
 }

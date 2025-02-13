@@ -3,6 +3,7 @@ version: "3.7"
 services:
   userinterface_service:
     image: userinterface:latest
+    container_name: userinterface
     hostname: userinterface
     environment:
       SPRING_DATASOURCE_URL: ${url_docker_food}
@@ -14,6 +15,7 @@ services:
       - food_shop_network
   userregistration_service:
     image: userregistration:latest
+    container_name: userregistration
     environment:
       SPRING_DATASOURCE_URL: ${url_docker_customers}
       SPRING_DATASOURCE_USERNAME: ${user}
@@ -24,6 +26,7 @@ services:
       - food_shop_network
   userauthentication_service:
     image: userauthentication:latest
+    container_name: userauthentication
     environment:
       SPRING_DATASOURCE_URL: ${url_docker_customers}
       SPRING_DATASOURCE_USERNAME: ${user}
@@ -32,6 +35,56 @@ services:
       - "8082:8082"
     networks:
       - food_shop_network
+
+  foodorderproducer_service:
+    image: foodorderproducer:latest
+    hostname: foodorderproducer
+    container_name: foodorderproducer
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    networks:
+      - food_shop_network
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    restart: "no"
+    networks:
+      - food_shop_network
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKER_CONNECT: kafka:29092
+    depends_on:
+      - "kafka"
+  zookeeper:
+    image: zookeeper:3.7.0
+    container_name: zookeeper
+    restart: "no"
+    networks:
+      - food_shop_network
+    ports:
+      - "2182:2181"
+  kafka:
+    image: obsidiandynamics/kafka
+    container_name: kafka
+    restart: "no"
+    networks:
+      - food_shop_network
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_INTERNAL:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: DOCKER_INTERNAL://:29092,DOCKER_EXTERNAL://:9092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_INTERNAL
+      KAFKA_CREATE_TOPICS: "food.order.topic:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
 networks:
   food_shop_network:
     name: food_shop_network
