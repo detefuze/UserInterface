@@ -35,15 +35,15 @@ services:
       - "8082:8082"
     networks:
       - food_shop_network
-
   foodorderproducer_service:
     image: foodorderproducer:latest
-    hostname: foodorderproducer
     container_name: foodorderproducer
+    hostname: foodorderproducer
     ports:
       - "8084:8084"
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      APP_KAFKA_TOPIC_NAME: "food.order.topic"
     networks:
       - food_shop_network
   kafdrop:
@@ -59,7 +59,7 @@ services:
     depends_on:
       - "kafka"
   zookeeper:
-    image: zookeeper:3.7.0
+    image: zookeeper:latest
     container_name: zookeeper
     restart: "no"
     networks:
@@ -67,7 +67,7 @@ services:
     ports:
       - "2182:2181"
   kafka:
-    image: obsidiandynamics/kafka
+    image: bitnami/kafka
     container_name: kafka
     restart: "no"
     networks:
