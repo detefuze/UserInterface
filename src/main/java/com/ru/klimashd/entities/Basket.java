@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id_product")
+    @Column
     private int id;
 
     @Column(name="product_type")
@@ -22,15 +22,18 @@ public class Basket {
     @Column
     private int price;
 
-    Basket() {
-    }
+    @Column
+    private int id_product;
 
-    public Basket(String productType, String name, int amount, int price) {
+    public Basket(String productType, String name, int amount, int price, int id_product) {
         this.productType = productType;
         this.name = name;
         this.amount = amount;
         this.price = price;
+        this.id_product = id_product;
     }
+
+    public Basket(){}
 
     public int getId() {
         return id;
@@ -62,5 +65,9 @@ public class Basket {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getId_product() {
+        return id_product;
     }
 }

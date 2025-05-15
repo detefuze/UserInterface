@@ -6,9 +6,6 @@ import com.ru.klimashd.entities.*;
 import com.ru.klimashd.mapper.MapperToBasketDTO;
 import com.ru.klimashd.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +25,7 @@ public class UserInterfaceController {
     private final FoodOrderService foodOrderService;
     private final MapperToBasketDTO mapperToBasketDTO;
     private Integer customer_balance;
+    private Integer totalSum;
 
     @Autowired
     public UserInterfaceController(VegetablesService vegetablesService,
@@ -49,8 +47,10 @@ public class UserInterfaceController {
     @GetMapping("")
     public String mainMenu(Model model) {
         List<Basket> basketList = basketService.getAllOrders();
+        totalSum = basketList.stream().mapToInt(Basket::getPrice).sum(); // итоговая сумма
         model.addAttribute("products", basketList);
         model.addAttribute("balance", customer_balance);
+        model.addAttribute("totalSum", totalSum);
         return "food-list";
     }
 
@@ -102,38 +102,42 @@ public class UserInterfaceController {
         switch (productType) {
             case "vegetables":
                 Optional<Vegetables> vegetable = vegetablesService.getVegetableById(id_product);
-                basketService.addNewOrder(new Basket(
+                basketService.addNewBasketPosition(new Basket(
                         productType,
                         vegetable.get().getName(),
                         amount,
-                        vegetable.get().getPrice()*amount
+                        vegetable.get().getPrice()*amount,
+                        vegetable.get().getId()
                 ));
                 return "redirect:/main_menu/vegetables";
             case "bakery":
                 Optional<Bakery> bakery = bakeryService.getBakeryById(id_product);
-                basketService.addNewOrder(new Basket(
+                basketService.addNewBasketPosition(new Basket(
                         productType,
                         bakery.get().getName(),
                         amount,
-                        bakery.get().getPrice()*amount
+                        bakery.get().getPrice()*amount,
+                        bakery.get().getId()
                 ));
                 return "redirect:/main_menu/bakery";
             case "dairy":
                 Optional<Dairy> dairy = dairyService.getDairyById(id_product);
-                basketService.addNewOrder(new Basket(
+                basketService.addNewBasketPosition(new Basket(
                         productType,
                         dairy.get().getName(),
                         amount,
-                        dairy.get().getPrice()*amount
+                        dairy.get().getPrice()*amount,
+                        dairy.get().getId()
                 ));
                 return "redirect:/main_menu/dairy";
             case "fruits":
                 Optional<Fruits> fruit = fruitsService.getFruitsById(id_product);
-                basketService.addNewOrder(new Basket(
+                basketService.addNewBasketPosition(new Basket(
                         productType,
                         fruit.get().getName(),
                         amount,
-                        fruit.get().getPrice()*amount
+                        fruit.get().getPrice()*amount,
+                        fruit.get().getId()
                 ));
                 return "redirect:/main_menu/fruits";
         }
@@ -142,14 +146,11 @@ public class UserInterfaceController {
 
     @PostMapping("/order")
     public String sendOrder() {
+        if (customer_balance == null) return "redirect:http://localhost:8082/main_menu/authentication_api/authentication";
+        if (customer_balance < totalSum) return "redirect:/main_menu";
         List<Basket> basket = basketService.getAllOrders();
 
-        List<BasketDTO> basketDTOList = mapperToBasketDTO.mapListToBasketDTO(basket);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<List<BasketDTO>> response = new HttpEntity<>(basketDTOList, headers);
+        List<BasketDTO> response = mapperToBasketDTO.mapListToBasketDTO(basket);
 
         foodOrderService.createOrder(response);
 

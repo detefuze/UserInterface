@@ -1,27 +1,43 @@
 package com.ru.klimashd.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class BasketDTO {
 
-    private int id_product;
+    private int id;
     private String name;
     private int amount;
     private int price;
     private String product_type;
+    private int id_product;
 
     public BasketDTO() {}
 
-    public BasketDTO(int id_product, String name, int amount, int price, String product_type) {
-        this.id_product = id_product;
+    public BasketDTO(int id, String name, int amount, int price, String product_type) {
+        this.id = id;
         this.name = name;
         this.amount = amount;
         this.price = price;
         this.product_type = product_type;
+        this.id_product = id_product;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getProduct_type() {
+        return product_type;
     }
 
     public int getId_product() {
         return id_product;
+    }
+
+    public void setId_product(int id_product) {
+        this.id_product = id_product;
     }
 
     public String getName() {
@@ -34,14 +50,6 @@ public class BasketDTO {
 
     public int getPrice() {
         return price;
-    }
-
-    public String getProduct_type() {
-        return product_type;
-    }
-
-    public void setId_product(int id_product) {
-        this.id_product = id_product;
     }
 
     public void setName(String name) {
@@ -59,4 +67,5 @@ public class BasketDTO {
     public void setProduct_type(String product_type) {
         this.product_type = product_type;
     }
+
 }

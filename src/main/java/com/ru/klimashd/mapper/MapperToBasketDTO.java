@@ -12,11 +12,12 @@ public class MapperToBasketDTO {
 
     public BasketDTO mapToBasketDTO(Basket basket) {
         BasketDTO basketDTO = new BasketDTO();
-        basketDTO.setId_product(basket.getId());
+        basketDTO.setId(basket.getId());
         basketDTO.setName(basket.getName());
         basketDTO.setAmount(basket.getAmount());
         basketDTO.setPrice(basket.getPrice());
         basketDTO.setProduct_type(basket.getProductType());
+        basketDTO.setId_product(basket.getId_product());
         return basketDTO;
     }
 

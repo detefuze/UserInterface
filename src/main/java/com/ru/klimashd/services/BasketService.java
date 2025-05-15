@@ -21,7 +21,7 @@ public class BasketService {
         return basketRepository.findAll();
     }
 
-    public void addNewOrder(Basket basket) {
+    public void addNewBasketPosition(Basket basket) {
         if (basketRepository.findByName(basket.getName()).isPresent()) {
             Basket db_basket = basketRepository.findByName(basket.getName()).get();
             int current_amount = basketRepository.findByName(basket.getName()).get().getAmount();
@@ -30,6 +30,7 @@ public class BasketService {
             db_basket.setPrice((db_basket.getPrice()/current_amount)*summary_amount);
             basketRepository.save(db_basket);
         } else {
+
             basketRepository.save(basket);
         }
     }

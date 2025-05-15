@@ -19,8 +19,8 @@ public class FoodOrderService {
         this.restTemplate = restTemplate;
     }
 
-    public void createOrder(HttpEntity<List<BasketDTO>> response) {
-        String uiServiceUrl = "http://foodorderproducer:8084/order";
+    public void createOrder(List<BasketDTO> response) {
+        String uiServiceUrl = "http://localhost:8084/order";
 
         ResponseEntity<String> authenticationResponse = restTemplate.postForEntity(uiServiceUrl,
                 response,

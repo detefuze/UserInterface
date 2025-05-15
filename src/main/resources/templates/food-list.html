@@ -43,6 +43,10 @@
         </tbody>
     </table>
 
+    <div class="total-sum-container">
+        <p class="total-sum">Итого: <span th:text="${totalSum != null} ? ${totalSum} : '0'"></span></p>
+    </div>
+
     <form action="/main_menu/order" method="post">
         <button type="submit" class="order-button">Заказать</button>
     </form>
