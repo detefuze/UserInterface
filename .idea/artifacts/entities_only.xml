@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="entities-only">
+    <output-path>$PROJECT_DIR$/out/artifacts/entities_only</output-path>
+    <root id="archive" name="entities-only.jar">
+      <element id="dir-copy" path="$PROJECT_DIR$/foodshop-entities/com.ru.entities" />
+    </root>
+  </artifact>
+</component>

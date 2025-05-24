@@ -22,15 +22,16 @@
 </div>
 <div class="container">
     <div class="button-container">
-        <input type="button" value="Vegetables" class="category-button" onclick='location.href="/main_menu/vegetables"'>
-        <input type="button" value="Dairy" class="category-button" onclick='location.href="/main_menu/dairy"'>
-        <input type="button" value="Fruits" class="category-button" onclick='location.href="/main_menu/fruits"'>
-        <input type="button" value="Bakery" class="category-button" onclick='location.href="/main_menu/bakery"'>
+        <input type="button" value="com.ru.entities.Vegetables" class="category-button" onclick='location.href="/main_menu/vegetables"'>
+        <input type="button" value="com.ru.entities.Dairy" class="category-button" onclick='location.href="/main_menu/dairy"'>
+        <input type="button" value="com.ru.entities.Fruits" class="category-button" onclick='location.href="/main_menu/fruits"'>
+        <input type="button" value="com.ru.entities.Bakery" class="category-button" onclick='location.href="/main_menu/bakery"'>
     </div>
     <h1>Фрукты</h1>
     <table>
         <thead>
         <tr>
+            <th>Id</th>
             <th>Название</th>
             <th>Количество</th>
             <th>Цена</th>
@@ -38,6 +39,7 @@
         </thead>
         <tbody>
         <tr th:each="fruit : ${fruits}">
+            <td th:text="${fruit.id}"></td>
             <td th:text="${fruit.name}"></td>
             <td th:text="${fruit.amount}"></td>
             <td th:text="${fruit.price}"></td>
@@ -52,7 +54,7 @@
             <input id="productId" name="id_product" required>
 
             <label for="quantity">Количество:</label>
-            <input id="quantity" name="amount" required>
+            <input id="quantity" name="added_amount" required>
 
             <button type="submit" class="button">В корзину</button>
         </form>

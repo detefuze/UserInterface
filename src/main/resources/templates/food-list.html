@@ -20,10 +20,10 @@
 <div class="container">
     <h1>Выберите категорию</h1>
     <div class="button-container">
-        <input type="button" value="Vegetables" class="category-button" onclick='location.href="/main_menu/vegetables"'>
-        <input type="button" value="Dairy" class="category-button" onclick='location.href="/main_menu/dairy"'>
-        <input type="button" value="Fruits" class="category-button" onclick='location.href="/main_menu/fruits"'>
-        <input type="button" value="Bakery" class="category-button" onclick='location.href="/main_menu/bakery"'>
+        <input type="button" value="com.ru.entities.Vegetables" class="category-button" onclick='location.href="/main_menu/vegetables"'>
+        <input type="button" value="com.ru.entities.Dairy" class="category-button" onclick='location.href="/main_menu/dairy"'>
+        <input type="button" value="com.ru.entities.Fruits" class="category-button" onclick='location.href="/main_menu/fruits"'>
+        <input type="button" value="com.ru.entities.Bakery" class="category-button" onclick='location.href="/main_menu/bakery"'>
     </div>
     <h1>Корзина</h1>
     <table>
@@ -37,7 +37,7 @@
         <tbody>
         <tr th:each="product : ${products}">
             <td th:text="${product.name}"></td>
-            <td th:text="${product.amount}"></td>
+            <td th:text="${product.order_amount}"></td>
             <td th:text="${product.price}"></td>
         </tr>
         </tbody>

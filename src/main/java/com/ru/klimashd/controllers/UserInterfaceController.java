@@ -2,7 +2,7 @@ package com.ru.klimashd.controllers;
 
 import com.ru.klimashd.dto.BasketDTO;
 import com.ru.klimashd.dto.CustomerDTO;
-import com.ru.klimashd.entities.*;
+import com.ru.klimashd.enums.ProductType;
 import com.ru.klimashd.mapper.MapperToBasketDTO;
 import com.ru.klimashd.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,7 @@ public class UserInterfaceController {
     private final DairyService dairyService;
     private final BasketService basketService;
     private final FoodOrderService foodOrderService;
+    private final ProductService productService;
     private final MapperToBasketDTO mapperToBasketDTO;
     private Integer customer_balance;
     private Integer totalSum;
@@ -34,6 +35,7 @@ public class UserInterfaceController {
                                    DairyService dairyService,
                                    BasketService basketService,
                                    FoodOrderService foodOrderService,
+                                   ProductService productService,
                                    MapperToBasketDTO mapperToBasketDTO) {
         this.vegetablesService = vegetablesService;
         this.bakeryService = bakeryService;
@@ -41,6 +43,7 @@ public class UserInterfaceController {
         this.dairyService = dairyService;
         this.basketService = basketService;
         this.foodOrderService = foodOrderService;
+        this.productService = productService;
         this.mapperToBasketDTO = mapperToBasketDTO;
     }
 
@@ -97,51 +100,17 @@ public class UserInterfaceController {
     public String addProductToBasket(
             @PathVariable String productType,
             @RequestParam int id_product,
-            @RequestParam int amount
+            @RequestParam int added_amount
             ) {
-        switch (productType) {
-            case "vegetables":
-                Optional<Vegetables> vegetable = vegetablesService.getVegetableById(id_product);
-                basketService.addNewBasketPosition(new Basket(
-                        productType,
-                        vegetable.get().getName(),
-                        amount,
-                        vegetable.get().getPrice()*amount,
-                        vegetable.get().getId()
-                ));
-                return "redirect:/main_menu/vegetables";
-            case "bakery":
-                Optional<Bakery> bakery = bakeryService.getBakeryById(id_product);
-                basketService.addNewBasketPosition(new Basket(
-                        productType,
-                        bakery.get().getName(),
-                        amount,
-                        bakery.get().getPrice()*amount,
-                        bakery.get().getId()
-                ));
-                return "redirect:/main_menu/bakery";
-            case "dairy":
-                Optional<Dairy> dairy = dairyService.getDairyById(id_product);
-                basketService.addNewBasketPosition(new Basket(
-                        productType,
-                        dairy.get().getName(),
-                        amount,
-                        dairy.get().getPrice()*amount,
-                        dairy.get().getId()
-                ));
-                return "redirect:/main_menu/dairy";
-            case "fruits":
-                Optional<Fruits> fruit = fruitsService.getFruitsById(id_product);
-                basketService.addNewBasketPosition(new Basket(
-                        productType,
-                        fruit.get().getName(),
-                        amount,
-                        fruit.get().getPrice()*amount,
-                        fruit.get().getId()
-                ));
-                return "redirect:/main_menu/fruits";
+        Class<? extends Product> productClass = ProductType.fromString(productType);
+        Product product = productService.getProductById(id_product, productType);
+        if (product == null) {
+            return "redirect:/main_menu";
         }
-        return "redirect:/main_menu";
+        Basket basket = new Basket(product.getName(), added_amount, product.getPrice());
+        basket.setProduct(product); // Устанавливаем связь с product
+        basketService.addNewBasketPosition(basket, productClass);
+        return "redirect:/main_menu/{productType}";
     }
 
     @PostMapping("/order")
