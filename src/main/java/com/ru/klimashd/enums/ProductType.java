@@ -1,10 +1,12 @@
 package com.ru.klimashd.enums;
 
+import com.ru.klimashd.entities.*;
+
 public enum ProductType {
-    FRUIT("fruits", Fruits),
-    BAKERY("bakery", Bakery),
-    VEGETABLE("vegetables", Vegetables),
-    DAIRY("dairy", Dairy);
+    FRUIT("fruits", Fruits.class),
+    BAKERY("bakery", Bakery.class),
+    VEGETABLE("vegetables", Vegetables.class),
+    DAIRY("dairy", Dairy.class);
 
     private final String productType;
     private final Class<? extends Product> productClass;

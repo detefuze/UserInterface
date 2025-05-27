@@ -2,6 +2,7 @@ package com.ru.klimashd.controllers;
 
 import com.ru.klimashd.dto.BasketDTO;
 import com.ru.klimashd.dto.CustomerDTO;
+import com.ru.klimashd.entities.*;
 import com.ru.klimashd.enums.ProductType;
 import com.ru.klimashd.mapper.MapperToBasketDTO;
 import com.ru.klimashd.services.*;
