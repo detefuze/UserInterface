@@ -1,5 +1,6 @@
 package com.ru.klimashd.entities;
 
+import com.fasterxml.jackson.annotation.*;
 import com.ru.klimashd.enums.ProductType;
 import jakarta.persistence.*;
 
@@ -11,6 +12,13 @@ import jakarta.persistence.*;
         sequenceName = "global_product_seq",
         allocationSize = 1
 )
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Fruits.class, name = "fruits"),
+        @JsonSubTypes.Type(value = Vegetables.class, name = "vegetables"),
+        @JsonSubTypes.Type(value = Bakery.class, name = "bakery"),
+        @JsonSubTypes.Type(value = Dairy.class, name = "dairy")
+})
 public abstract class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_product_seq")
@@ -46,6 +54,8 @@ public abstract class Product {
     public int getPrice() { return price; }
     public void setPrice(int price) { this.price = price; }
 
-
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
 }
 

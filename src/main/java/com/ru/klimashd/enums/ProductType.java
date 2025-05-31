@@ -16,7 +16,7 @@ public enum ProductType {
         this.productClass = productClass;
     }
 
-    public String getProductType() {
+    public String getProductTypeString() {
         return productType;
     }
 

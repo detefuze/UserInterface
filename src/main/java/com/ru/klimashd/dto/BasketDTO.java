@@ -75,4 +75,5 @@ public class BasketDTO {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
 }

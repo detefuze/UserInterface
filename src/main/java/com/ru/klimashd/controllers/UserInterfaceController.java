@@ -118,6 +118,7 @@ public class UserInterfaceController {
     public String sendOrder() {
         if (customer_balance == null) return "redirect:http://localhost:8082/main_menu/authentication_api/authentication";
         if (customer_balance < totalSum) return "redirect:/main_menu";
+        customer_balance -= totalSum;
         List<Basket> basket = basketService.getAllOrders();
 
         List<BasketDTO> response = mapperToBasketDTO.mapListToBasketDTO(basket);

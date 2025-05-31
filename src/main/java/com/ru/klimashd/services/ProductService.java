@@ -20,10 +20,10 @@ public class ProductService {
                           FruitsRepository fruitsRepository,
                           VegetablesRepository vegetablesRepository) {
         this.repositories = Map.of(
-                ProductType.FRUIT.getProductType(), fruitsRepository,
-                ProductType.VEGETABLE.getProductType(), vegetablesRepository,
-                ProductType.DAIRY.getProductType(), dairyRepository,
-                ProductType.BAKERY.getProductType(), bakeryRepository
+                ProductType.FRUIT.getProductTypeString(), fruitsRepository,
+                ProductType.VEGETABLE.getProductTypeString(), vegetablesRepository,
+                ProductType.DAIRY.getProductTypeString(), dairyRepository,
+                ProductType.BAKERY.getProductTypeString(), bakeryRepository
         );
     }
 

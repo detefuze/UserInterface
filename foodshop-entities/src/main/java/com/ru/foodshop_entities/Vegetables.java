@@ -7,11 +7,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "vegetables")
 public class Vegetables extends Product {
-    public Vegetables(ProductType productType) {
-        super(ProductType.VEGETABLE);
-    }
-
     public Vegetables() {
-        super();
+        this.productType = ProductType.VEGETABLE;
     }
 }

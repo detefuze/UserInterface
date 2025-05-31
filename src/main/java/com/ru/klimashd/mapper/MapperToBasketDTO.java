@@ -17,7 +17,8 @@ public class MapperToBasketDTO {
         basketDTO.setOrder_amount(basket.getOrder_amount());
         basketDTO.setPrice(basket.getPrice());
         basketDTO.setCustomer_id(basket.getId()); // TODO передать правильный id
-        basketDTO.setProduct(basketDTO.getProduct());
+
+        basketDTO.setProduct(basket.getProduct());
 
         return basketDTO;
     }
