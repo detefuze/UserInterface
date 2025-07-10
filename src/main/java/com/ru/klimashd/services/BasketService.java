@@ -49,4 +49,6 @@ public class BasketService {
             basketRepository.save(basket);
         }
     }
+
+    public void freeBasket() { basketRepository.deleteAll();}
 }

@@ -1,8 +1,8 @@
 package com.ru.klimashd.services;
 
 import com.ru.klimashd.dto.BasketDTO;
+import com.ru.klimashd.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -21,6 +21,8 @@ public class FoodOrderService {
 
     public void createOrder(List<BasketDTO> response) {
         String uiServiceUrl = "http://localhost:8084/order";
+
+        // TODO сделать ссылку на микросервис обработки баланса
 
         ResponseEntity<String> authenticationResponse = restTemplate.postForEntity(uiServiceUrl,
                 response,

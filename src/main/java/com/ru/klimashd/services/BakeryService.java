@@ -2,10 +2,12 @@ package com.ru.klimashd.services;
 
 import com.ru.klimashd.entities.Bakery;
 import com.ru.klimashd.repositories.BakeryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -21,5 +23,5 @@ public class BakeryService {
         return bakeryRepository.findAll();
     }
 
-    public Optional<Bakery> getBakeryById(int id) { return bakeryRepository.findBakeryById(id);}
+    public Optional<Bakery> getBakeryById(Integer id) { return bakeryRepository.findBakeryById(id);}
 }

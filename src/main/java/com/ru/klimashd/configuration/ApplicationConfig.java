@@ -15,13 +15,14 @@ public class ApplicationConfig {
 
     @Bean
     public RestTemplate restTemplate() {
-        // Создаем HttpClient с пулом соединений
+
+        // Создание HttpClient с пулом соединений
         HttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         HttpClient httpClient = HttpClients.custom()
                 .setConnectionManager(connectionManager)
                 .build();
 
-        // Настраиваем RestTemplate с использованием HttpClient
+        // Настройка RestTemplate с использованием HttpClient
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
         return new RestTemplate(factory);
     }

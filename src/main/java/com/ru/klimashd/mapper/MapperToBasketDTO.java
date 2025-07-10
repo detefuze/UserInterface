@@ -10,24 +10,31 @@ import java.util.List;
 @Component
 public class MapperToBasketDTO {
 
-    public BasketDTO mapToBasketDTO(Basket basket) {
+    private final MapperToProductDTO mapperToProductDTO;
+
+    public MapperToBasketDTO(MapperToProductDTO mapperToProductDTO) {
+        this.mapperToProductDTO = mapperToProductDTO;
+    }
+
+    public BasketDTO mapToBasketDTO(int customer_id, Basket basket) {
         BasketDTO basketDTO = new BasketDTO();
         basketDTO.setProduct_id(basket.getProduct().getId());
         basketDTO.setName(basket.getName());
         basketDTO.setOrder_amount(basket.getOrder_amount());
         basketDTO.setPrice(basket.getPrice());
-        basketDTO.setCustomer_id(basket.getId()); // TODO передать правильный id
+        basketDTO.setCustomer_id(customer_id);
 
-        basketDTO.setProduct(basket.getProduct());
+        basketDTO.setProduct(mapperToProductDTO
+                .mapToProductDTO(basket.getProduct()));
 
         return basketDTO;
     }
 
-    public List<BasketDTO> mapListToBasketDTO(List<Basket> basket) {
+    public List<BasketDTO> mapListToBasketDTO(int customer_id, List<Basket> basket) {
         List<BasketDTO> basketDTOList = new ArrayList<>();
 
         for (Basket pos : basket) {
-            basketDTOList.add(mapToBasketDTO(pos));
+            basketDTOList.add(mapToBasketDTO(customer_id, pos));
         }
 
         return basketDTOList;

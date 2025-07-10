@@ -47,7 +47,25 @@
         <p class="total-sum">Итого: <span th:text="${totalSum != null} ? ${totalSum} : '0'"></span></p>
     </div>
 
-    <form action="/main_menu/order" method="post">
+    <script th:inline="javascript">
+        // Получаем токен из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (token) {
+                const form = document.querySelector('form');
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'token';
+                hiddenInput.value = token;
+                form.appendChild(hiddenInput);
+            }
+        });
+    </script>
+
+    <form action="/main_menu/sendOrder" method="post">
         <button type="submit" class="order-button">Заказать</button>
     </form>
 </div>

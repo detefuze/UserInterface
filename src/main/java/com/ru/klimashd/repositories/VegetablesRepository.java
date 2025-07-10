@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface VegetablesRepository extends JpaRepository<Vegetables, Integer> {
+public interface VegetablesRepository extends JpaRepository<Vegetables, Integer>,
+        ProductBaseRepository<Vegetables> {
     Optional<Vegetables> findVegetablesById(int id);
 }
